@@ -1,6 +1,7 @@
 from datetime import datetime as date
 import os
 import sys
+import io
 ctime = date.now()
 yeardir = f"{os.path.dirname(os.path.abspath(__file__))}/{ctime.year}"
 monthdir = f"{yeardir}/{ctime.month}"
@@ -37,4 +38,8 @@ while urlcount > curcount:
     response = requests.post('https://cleanuri.com/api/v1/shorten', data=data)
     print(f"Kısaltılan Link : {response.json()['result_url']}")
     curcount = curcount +1
-    print(curcount)
+    with io.open(hourdir+"/"+str(ctime.minute)+"-"+"shorted.txt","x",encoding="utf-8") as myfile:
+        myfile.write("------------------------------ \n")
+        myfile.write("Orjinal URL : "+url+"\n")
+        myfile.write("Kısaltılan URL : "+response.json()['result_url']+"\n")
+        myfile.write("------------------------------"+"\n")
