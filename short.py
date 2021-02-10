@@ -1,5 +1,6 @@
 from datetime import datetime as date
 import os
+import sys
 ctime = date.now()
 yeardir = f"{os.path.dirname(os.path.abspath(__file__))}/{ctime.year}"
 monthdir = f"{yeardir}/{ctime.month}"
@@ -18,7 +19,13 @@ if not os.path.exists(hourdir):
     print(f"{ctime.hour} isimli klasör oluşturuldu")
     os.makedirs(hourdir)
 print("Kaç Adet Link Kısaltılacak")
-urlcount = int(input())
+try:
+    urlcount = int(input())
+except ValueError:
+    print('Geçersiz Sayı')
+    sys.exit()
+else:
+    pass
 curcount = 0
 import requests
 while urlcount > curcount:
